@@ -1,17 +1,13 @@
 <template>
-    <header>
-        <slot></slot>
-        <ul>
-            <li>
-                <nuxt-link to="/">Home</nuxt-link>
-            </li>
-            <li><nuxt-link to="/jokes">Jokes</nuxt-link></li>
-            <li><nuxt-link to="/about">About</nuxt-link></li>
-        </ul>
-
+    <header :class="{'mini' : hidden}">
+      <div class="header-content">
+          <slot></slot> 
+      </div>
     </header>
 </template>
 <script>
+import { mapGetters, mapMutations } from 'vuex'
+
 export default {
     name: 'AppHeader',
     data() {
@@ -20,53 +16,39 @@ export default {
         }
     },
     mounted() {
-        window.addEventListener('scroll', () => {
+        /*window.addEventListener('scroll', () => {
             //this.fixed = (window.scrollY > 50) ? true: false;
-            let max = 250; 
-            let min = 80;
+            let maxHeight = getComputedStyle(document.documentElement).getPropertyValue('--header-max-height');
+            let minHeight = getComputedStyle(document.documentElement).getPropertyValue('--header-min-height');
+            
+            let max = parseInt(maxHeight, 10); 
+            let min = parseInt(minHeight, 10);
             let height = ((max - window.scrollY) > min) ? max - window.scrollY : min; 
     
             document.querySelector('header').style.height = height + "px";
-        }, { passive: false });
-    }
-
-    
+        }, { passive: false });*/
+    },
+    computed: {
+        ...mapGetters({
+            hidden: 'header/hidden'
+        })
+    },
 }
 </script>
 <style scoped>
     header {
-        position: fixed;
-        left:0;
-        right: 0;
+        grid-area: header;
+        position: relative;
+        height: var(--header-height);
+        background: var(--accent-color);
+        transition: all 1.2s ease;
+    }
+
+    header .header-content {
         display: flex;
-        justify-content: space-between;
+        flex-direction: row;
+        justify-content: space-around;
         align-items: center;
-        height: 250px;
-        background: rgba(43, 177, 187, 0.5);
-        transition: background 0.2s ease;
-        padding: 24px 5vw;
+        height: 100%;
     }
-    
-
-    header:hover {
-        background: rgba(43, 177, 187, 0.6);
-        transition: background 0.2s ease;
-    }
-    header ul {
-        display: flex;
-    }
-
-    header ul li {
-        display: inline-block;
-        padding: 0.3rem 0 0.3rem 1.5rem
-    }
-
-    header a {
-        color: whitesmoke
-    }
-    header a:hover {
-        color: white;
-        text-decoration: underline;
-    }
-
 </style>

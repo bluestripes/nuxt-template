@@ -6,10 +6,11 @@
 
 <style scoped>
     section {
-        height: 100vh;
-        scroll-snap-align: start;
+        
+        min-width: 100vw;
+        scroll-snap-align: end;
+        scroll-snap-align: center;
         background: white;
-        padding-top: 100px;
     }
 
     section {

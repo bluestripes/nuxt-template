@@ -1,17 +1,32 @@
 <template>
-  <div class="wrapper">
-    <AppHeader>
-      <div>Logo</div>
-    </AppHeader>
-    <AppContent>
-       <Nuxt />
+  <div class="grid-wrapper">
+    <TopNav />
       
+    <AppHeader>
+      <!--Logo />
+      <LogoPhoto /-->
+      <div style="border: 1px solid black">Logo</div>
+      <div style="border: 1px solid black">Photo</div>
+    </AppHeader>
+
+    <AppContent>
+      
+       <Nuxt />
+    
     </AppContent>  
     
   </div>
 </template>
 
 <style>
+:root {
+  --accent-color: #87ceeb;
+  --black: #282828;
+  --white: #FFFFFF;
+  --header-height: 260px;
+  --header-max-height: 260px;
+  --header-min-height: 80px
+}
 html {
   font-family:
     'Source Sans Pro',
@@ -29,7 +44,15 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
+
+  
 }
+
+/*body {
+  scroll-snap-type: mandatory;
+  scroll-snap-points-y: repeat(3rem);
+  scroll-snap-type: y mandatory;
+}*/
 
 *,
 *::before,
@@ -68,12 +91,35 @@ html {
 }
 
 .wrapper {
+    height: calc(100vh - var(--header-height));
+    width: 100vw;
     /*padding-top: 200px;
     max-height: calc(100vh - 200px);
     overflow-y: scroll;
     scroll-snap-type: mandatory;
     scroll-snap-points-y: repeat(3rem);
     scroll-snap-type: y mandatory;*/
+    overflow: hidden;
 }
+
+.grid-wrapper {
+    /*display: grid;
+    grid-template-rows: 10px var(--header) 1fr;
+    grid-template-columns: 100vw;
+    grid-template-areas:
+        "nav"
+        "header"    
+        "content";
+    height: 100vh;
+    width: 100vw;*/
+    display: grid;
+                    
+                    grid-template-columns: auto;
+                    grid-template-rows: 10px var(--header-height) calc(100vh - ( var(--header-height) + 10px));
+                    grid-template-areas: "nav" "header" "content";
+
+}
+
+a {text-decoration: none;}
 
 </style>
